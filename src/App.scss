@@ -1,6 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./components/Profile/Showcase/index.scss";
 @import "./components/Profile/index.scss";
+@import "./components/Messages/index.scss";
+@import "./components/Post/index.scss";
+@import "./components/Dashboard/index.scss";
 
 .App {
   padding: 1em;
@@ -8,10 +11,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-logo {
