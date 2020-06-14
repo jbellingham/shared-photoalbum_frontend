@@ -1,7 +1,6 @@
 import React from 'react';
 import ProfilePicture, { IProfilePictureProps } from '../shared/ProfilePicture';
 import { Row, Col } from 'react-bootstrap';
-import { profile } from 'console';
 
 function Messages() {
     const profilePictureProps: IProfilePictureProps = {

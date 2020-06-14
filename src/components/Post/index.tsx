@@ -35,7 +35,9 @@ function Post(props: IPostProps) {
     return (
         <Card className="post-container">
             <Card.Title className="post-title">{props.title}</Card.Title>
-            <Card.Img src={image}></Card.Img>
+            {image && props.linkUrl &&
+                <Card.Img src={image}></Card.Img>
+            }
             <Card.Footer className="text-center">
                 {props.comments &&
                     <div className="comments-container">

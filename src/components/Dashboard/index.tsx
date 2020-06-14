@@ -1,6 +1,7 @@
 import React from 'react'
 import Post, { IPostProps } from '../Post';
-import { Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import NewPost from './NewPost';
 
 let posts: IPostProps[] = [{
         id: 1,
@@ -20,11 +21,18 @@ let posts: IPostProps[] = [{
 function Dashboard() {
     return (
         <div className="dashboard-container">
+            <Row >
+                <Col md={{ span: 4, offset: 4 }}>
+                    <NewPost />
+                </Col>
+            </Row>
             {
                 posts.map(post => {
-                    return <Row className="justify-content-md-center" key={post.id} >
+                    return <Row key={post.id} >
+                        <Col md={{ span: 4, offset: 4 }}>
                             <Post {...post} />
-                        </Row>
+                        </Col>
+                    </Row>
                 })
             }
         </div>
