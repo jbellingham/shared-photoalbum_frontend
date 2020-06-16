@@ -8,7 +8,8 @@ import { observer } from 'mobx-react';
 
 const Dashboard = observer(() => {
     const { postStore } = useStore();
-    const posts = postStore.posts;
+    const posts = postStore.getPosts;
+    debugger
 
     return (
         <div className="dashboard-container">
@@ -18,7 +19,7 @@ const Dashboard = observer(() => {
                 </Col>
             </Row>
             {
-                posts.map(post => {
+                posts && posts.map(post => {
                     return <Row key={post.id} >
                         <Col md={{ span: 4, offset: 4 }}>
                             <Post {...post} />

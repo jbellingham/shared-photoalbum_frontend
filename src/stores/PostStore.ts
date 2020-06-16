@@ -1,36 +1,39 @@
 import { action, decorate, observable, computed } from 'mobx';
-import { ICommentProps } from "../components/Post/Comment";
-import { IPostProps } from "../components/Post";
-
-import postsJson from './data/posts.json';
-
-export type TPost = {
-    id: string;
-    linkUrl: string;
-    text: string;
-    comments: ICommentProps[];
-}
+import { PostDto, PostClient, CreatePostCommand, PostsVm } from '../Client';
 
 class PostStore {
-    constructor() {
-        if (this.posts && this.posts.length === 0) {
-            postsJson.forEach(post => this.posts.push(post));
-        }
+
+    vm: PostsVm = new PostsVm();
+
+    constructor(private postClient: PostClient) {
+        // this.vm = new PostsVm();
+        // if (this.vm.posts && this.vm.posts.length === 0) {
+            this.postClient.get().then((result: PostsVm) => {
+                // this.vm.posts = [];
+                result.posts?.map(post => this.vm.posts.push(post))
+            })
+        // }
     }
 
-    posts: TPost[] = [];
-
-    createPost(post: IPostProps) {
-        this.posts.push(post);
+    async createPost(post: PostDto) {
+        let id = await this.postClient.create(CreatePostCommand.fromJS({ ...post }));
+        console.log(id)
+        this.vm.posts?.push(post);
+        // this.postClient.create(CreatePostCommand.fromJS({ ...post }))
+        //     .then((id: number) => {
+        //         debugger
+        //         console.log(id);
+        //         this.vm.posts?.push(post);
+        //     });
     }
 
-    @computed get getPosts(): TPost[] {
-        return this.posts;
+    get getPosts(): PostDto[] {
+        return this.vm.posts;
     }
 }
 
 decorate(PostStore, {
-    posts: observable,
+    vm: observable,
     createPost: action,
     getPosts: computed
 })

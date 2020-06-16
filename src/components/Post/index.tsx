@@ -1,17 +1,20 @@
 import React from 'react'
 import { Card, Form } from 'react-bootstrap';
 import image from "../../static/images/image-1.jpg"
-import Comment, { ICommentProps } from './Comment';
+import Comment from './Comment';
+import { IPostDto, CommentDto } from '../../Client';
+import { useStore } from '../../stores/StoreContext';
 
-export interface IPostProps {
-    id: string,
-    linkUrl: string,
-    text: string,
-    comments: ICommentProps[]
-}
+// export interface IPostProps {
+//     id: string,
+//     linkUrl: string,
+//     text: string,
+//     comments: ICommentProps[]
+// }
 
-function Post(props: IPostProps) {
+function Post(props: IPostDto) {
     const [comment, setComment] = React.useState('');
+    const { commentStore } = useStore();
     
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setComment(event.currentTarget.value);
@@ -22,10 +25,12 @@ function Post(props: IPostProps) {
             event.preventDefault();
             event.stopPropagation();
             if (comment) {
-                props.comments.push({
-                    text: comment,
-                    likes: 0
-                })
+                // props.comments && props.comments.push({
+                //     text: comment,
+                //     likes: 0
+                // })
+                commentStore.createComment(new CommentDto({text: comment}))
+                
                 setComment("");
             }
         }

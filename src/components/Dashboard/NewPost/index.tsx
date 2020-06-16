@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import ProfilePicture, { IProfilePictureProps } from '../../shared/ProfilePicture';
 import { useStore } from '../../../stores/StoreContext';
+import { PostDto } from '../../../Client';
 
 const profilePictureProps: IProfilePictureProps = {
     width: 50,
@@ -21,7 +22,7 @@ function NewPost() {
             event.preventDefault();
             event.stopPropagation();
             if (postText) {
-                postStore.createPost({id: "", text: postText, linkUrl: "", comments: []})
+                postStore.createPost(new PostDto({id: 0, text: postText, linkUrl: "", comments: []}));
                 setPostTest("");
             }
         }
