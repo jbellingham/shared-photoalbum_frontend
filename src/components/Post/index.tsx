@@ -4,10 +4,9 @@ import image from "../../static/images/image-1.jpg"
 import Comment, { ICommentProps } from './Comment';
 
 export interface IPostProps {
-    id: number,
+    id: string,
     linkUrl: string,
     text: string,
-    title: string
     comments: ICommentProps[]
 }
 
@@ -34,7 +33,7 @@ function Post(props: IPostProps) {
 
     return (
         <Card className="post-container">
-            <Card.Title className="post-title">{props.title}</Card.Title>
+            <Card.Header>{props.text}</Card.Header>
             {image && props.linkUrl &&
                 <Card.Img src={image}></Card.Img>
             }

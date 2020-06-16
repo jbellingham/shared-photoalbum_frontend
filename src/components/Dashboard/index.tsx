@@ -1,24 +1,15 @@
 import React from 'react'
-import Post, { IPostProps } from '../Post';
+import Post from '../Post';
 import { Row, Col } from 'react-bootstrap';
 import NewPost from './NewPost';
+import { useStore } from '../../stores/StoreContext';
+import { observer } from 'mobx-react';
 
-let posts: IPostProps[] = [{
-        id: 1,
-        text: "This is a post",
-        title: "Post title",
-        linkUrl: "www.jessebellingham.com",
-        comments: []
-    }, {
-        id: 2,
-        text: "This is another post",
-        title: "Post title the second",
-        linkUrl: "www.jessebellingham.com",
-        comments: []
-    }
-]
 
-function Dashboard() {
+const Dashboard = observer(() => {
+    const { postStore } = useStore();
+    const posts = postStore.posts;
+
     return (
         <div className="dashboard-container">
             <Row >
@@ -37,6 +28,6 @@ function Dashboard() {
             }
         </div>
     );
-}
+})
 
 export default Dashboard;

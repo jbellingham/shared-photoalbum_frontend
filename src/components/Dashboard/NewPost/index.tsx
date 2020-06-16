@@ -1,6 +1,7 @@
 import React from 'react';
-import ProfilePicture, { IProfilePictureProps } from '../../shared/ProfilePicture';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import ProfilePicture, { IProfilePictureProps } from '../../shared/ProfilePicture';
+import { useStore } from '../../../stores/StoreContext';
 
 const profilePictureProps: IProfilePictureProps = {
     width: 50,
@@ -8,6 +9,7 @@ const profilePictureProps: IProfilePictureProps = {
 }
 
 function NewPost() {
+    const { postStore } = useStore();
     const [postText, setPostTest] = React.useState('');    
     
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,11 +21,7 @@ function NewPost() {
             event.preventDefault();
             event.stopPropagation();
             if (postText) {
-                console.log("new post: " + postText);
-                // props.comments.push({
-                //     text: comment,
-                //     likes: 0
-                // })
+                postStore.createPost({id: "", text: postText, linkUrl: "", comments: []})
                 setPostTest("");
             }
         }
