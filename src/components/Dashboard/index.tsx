@@ -1,15 +1,14 @@
 import React from 'react'
-import Post from '../Post';
+import { observer } from 'mobx-react';
 import { Row, Col } from 'react-bootstrap';
+import Post from '../Post';
 import NewPost from './NewPost';
 import { useStore } from '../../stores/StoreContext';
-import { observer } from 'mobx-react';
 
 
 const Dashboard = observer(() => {
     const { postStore } = useStore();
-    const posts = postStore.getPosts;
-    debugger
+    const posts = postStore.posts;
 
     return (
         <div className="dashboard-container">

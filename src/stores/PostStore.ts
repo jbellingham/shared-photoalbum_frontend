@@ -1,41 +1,25 @@
-import { action, decorate, observable, computed } from 'mobx';
+import { action, decorate, observable } from 'mobx';
 import { PostDto, PostClient, CreatePostCommand, PostsVm } from '../Client';
 
 class PostStore {
 
-    vm: PostsVm = new PostsVm();
+    posts: PostDto[] | undefined = [];
 
     constructor(private postClient: PostClient) {
-        // this.vm = new PostsVm();
-        // if (this.vm.posts && this.vm.posts.length === 0) {
-            this.postClient.get().then((result: PostsVm) => {
-                // this.vm.posts = [];
-                result.posts?.map(post => this.vm.posts.push(post))
-            })
-        // }
+        this.postClient.get().then((result: PostsVm) => {
+            this.posts = result.posts;
+        })
     }
 
     async createPost(post: PostDto) {
-        let id = await this.postClient.create(CreatePostCommand.fromJS({ ...post }));
-        console.log(id)
-        this.vm.posts?.push(post);
-        // this.postClient.create(CreatePostCommand.fromJS({ ...post }))
-        //     .then((id: number) => {
-        //         debugger
-        //         console.log(id);
-        //         this.vm.posts?.push(post);
-        //     });
-    }
-
-    get getPosts(): PostDto[] {
-        return this.vm.posts;
+        await this.postClient.create(CreatePostCommand.fromJS({ ...post }));
+        this.posts?.unshift(post);
     }
 }
 
 decorate(PostStore, {
-    vm: observable,
+    posts: observable,
     createPost: action,
-    getPosts: computed
 })
 
 export default PostStore;

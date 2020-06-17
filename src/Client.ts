@@ -740,7 +740,7 @@ export interface ICreatePostCommand {
 }
 
 export class PostsVm implements IPostsVm {
-    posts: PostDto[] = [];
+    posts?: PostDto[] | undefined;
 
     constructor(data?: IPostsVm) {
         if (data) {

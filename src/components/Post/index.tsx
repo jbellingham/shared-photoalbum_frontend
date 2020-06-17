@@ -20,17 +20,12 @@ function Post(props: IPostDto) {
         setComment(event.currentTarget.value);
     }
 
-    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) : void => {
+    const onKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) : Promise<void> => {
         if (event.key === 'Enter') {
             event.preventDefault();
             event.stopPropagation();
             if (comment) {
-                // props.comments && props.comments.push({
-                //     text: comment,
-                //     likes: 0
-                // })
-                commentStore.createComment(new CommentDto({text: comment}))
-                
+                await commentStore.createComment(new CommentDto({text: comment}))                
                 setComment("");
             }
         }
