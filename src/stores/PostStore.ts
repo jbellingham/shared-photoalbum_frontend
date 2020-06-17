@@ -1,19 +1,18 @@
-import { action, decorate, observable } from 'mobx';
-import { PostDto, PostClient, CreatePostCommand, PostsVm } from '../Client';
+import { action, decorate, observable } from 'mobx'
+import { PostDto, PostClient, CreatePostCommand, PostsVm } from '../Client'
 
 class PostStore {
-
-    posts: PostDto[] | undefined = [];
+    posts: PostDto[] | undefined = []
 
     constructor(private postClient: PostClient) {
         this.postClient.get().then((result: PostsVm) => {
-            this.posts = result.posts;
+            this.posts = result.posts
         })
     }
 
-    async createPost(post: PostDto) {
-        await this.postClient.create(CreatePostCommand.fromJS({ ...post }));
-        this.posts?.unshift(post);
+    async createPost(post: PostDto): Promise<void> {
+        await this.postClient.create(CreatePostCommand.fromJS({ ...post }))
+        this.posts?.unshift(post)
     }
 }
 
@@ -22,4 +21,4 @@ decorate(PostStore, {
     createPost: action,
 })
 
-export default PostStore;
+export default PostStore

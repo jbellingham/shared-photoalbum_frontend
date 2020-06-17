@@ -1,29 +1,29 @@
-import React from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import ProfilePicture, { IProfilePictureProps } from '../../shared/ProfilePicture';
-import { useStore } from '../../../stores/StoreContext';
-import { PostDto } from '../../../Client';
+import React from 'react'
+import { Form, Button, Row, Col } from 'react-bootstrap'
+import ProfilePicture, { IProfilePictureProps } from '../../shared/ProfilePicture'
+import { useStore } from '../../../stores/StoreContext'
+import { PostDto } from '../../../Client'
 
 const profilePictureProps: IProfilePictureProps = {
     width: 50,
-    height: 50
+    height: 50,
 }
 
 function NewPost() {
-    const { postStore } = useStore();
-    const [postText, setPostTest] = React.useState('');    
-    
+    const { postStore } = useStore()
+    const [postText, setPostTest] = React.useState('')
+
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPostTest(event.currentTarget.value);
+        setPostTest(event.currentTarget.value)
     }
 
-    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) : void => {
+    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
         if (event.key === 'Enter') {
-            event.preventDefault();
-            event.stopPropagation();
+            event.preventDefault()
+            event.stopPropagation()
             if (postText) {
-                postStore.createPost(new PostDto({id: 0, text: postText, linkUrl: "", comments: []}));
-                setPostTest("");
+                postStore.createPost(new PostDto({ id: 0, text: postText, linkUrl: '', comments: [] }))
+                setPostTest('')
             }
         }
     }
@@ -32,11 +32,16 @@ function NewPost() {
         <>
             <Form>
                 <Row>
-                    <Col md={{span: 1}}>
+                    <Col md={{ span: 1 }}>
                         <ProfilePicture {...profilePictureProps} />
                     </Col>
                     <Col className="status-input align-middle">
-                        <Form.Control placeholder="Whats new?" value={postText} onKeyDown={onKeyDown} onChange={handleChange} />
+                        <Form.Control
+                            placeholder="Whats new?"
+                            value={postText}
+                            onKeyDown={onKeyDown}
+                            onChange={handleChange}
+                        />
                     </Col>
                 </Row>
                 <Row className="justify-content-md-center">
@@ -45,7 +50,7 @@ function NewPost() {
                 </Row>
             </Form>
         </>
-    );
+    )
 }
 
-export default NewPost;
+export default NewPost

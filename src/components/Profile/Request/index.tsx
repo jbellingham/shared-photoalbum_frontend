@@ -1,29 +1,31 @@
-import React from 'react';
+import React from 'react'
 import { Button } from 'react-bootstrap'
 import RequestModal, { IModalProps } from './RequestModal'
 
 function Request() {
-    const [show, setShow] = React.useState(false);
+    const [show, setShow] = React.useState(false)
 
     const handleClickShow = () => {
-        setShow(true);
+        setShow(true)
     }
 
     const handleClose = () => {
-        setShow(false);
+        setShow(false)
     }
 
     const modalProps: IModalProps = {
         handleClose,
-        show
+        show,
     }
 
     return (
         <>
-            <Button variant="primary" onClick={handleClickShow}>Request commission</Button>
+            <Button variant="primary" onClick={handleClickShow}>
+                Request commission
+            </Button>
             <RequestModal {...modalProps} />
         </>
-    );
+    )
 }
 
-export default Request;
+export default Request

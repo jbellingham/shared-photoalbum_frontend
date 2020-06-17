@@ -1,15 +1,15 @@
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import React from 'react'
+import { Row, Col } from 'react-bootstrap'
 import Showcase from './Showcase'
 import Request from './Request'
-import ProfilePicture, { IProfilePictureProps } from '../shared/ProfilePicture';
+import ProfilePicture, { IProfilePictureProps } from '../shared/ProfilePicture'
 
 function Profile() {
     const profilePictureProps: IProfilePictureProps = {
         height: 200,
-        width: 200
-    };
-    
+        width: 200,
+    }
+
     return (
         <>
             <Row>
@@ -21,7 +21,7 @@ function Profile() {
             <Request />
             <Showcase />
         </>
-    );
+    )
 }
 
-export default Profile;
+export default Profile

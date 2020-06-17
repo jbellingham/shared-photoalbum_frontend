@@ -840,6 +840,7 @@ export interface IPostDto {
 }
 
 export class CommentDto implements ICommentDto {
+    id?: number;
     text?: string | undefined;
     likes?: number;
     postId?: number;
@@ -855,6 +856,7 @@ export class CommentDto implements ICommentDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.text = _data["text"];
             this.likes = _data["likes"];
             this.postId = _data["postId"];
@@ -870,6 +872,7 @@ export class CommentDto implements ICommentDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["text"] = this.text;
         data["likes"] = this.likes;
         data["postId"] = this.postId;
@@ -878,6 +881,7 @@ export class CommentDto implements ICommentDto {
 }
 
 export interface ICommentDto {
+    id?: number;
     text?: string | undefined;
     likes?: number;
     postId?: number;
