@@ -10,7 +10,7 @@ class PostStore {
         })
     }
 
-    async createPost(post: PostDto): Promise<void> {
+    async createPost(post: CreatePostCommand): Promise<void> {
         await this.postClient.create(CreatePostCommand.fromJS({ ...post }))
         this.posts?.unshift(post)
     }

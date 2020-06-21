@@ -1,5 +1,5 @@
 import { action, decorate } from 'mobx'
-import { CommentClient, CommentDto, CreateCommentCommand } from '../Client'
+import { CommentClient, CommentDto, CreateCommentCommand, PostDto } from '../Client'
 import PostStore from './PostStore'
 
 class CommentStore {
@@ -7,7 +7,11 @@ class CommentStore {
 
     async createComment(comment: CommentDto): Promise<void> {
         await this.commentClient.create(CreateCommentCommand.fromJS({ ...comment }))
-        this.postStore.posts?.find((_) => _.id === comment.postId)?.comments?.unshift(comment)
+        const post = this.postStore.posts?.find((post: PostDto) => post.id === comment.postId)
+        if (post && !post?.comments) {
+            post.comments = []
+        }
+        post?.comments?.push(comment)
     }
 }
 

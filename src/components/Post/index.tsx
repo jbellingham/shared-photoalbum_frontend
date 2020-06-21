@@ -1,11 +1,12 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { Card, Form } from 'react-bootstrap'
-import image from '../../static/images/image-1.jpg'
 import Comment from './Comment'
 import { IPostDto, CommentDto } from '../../Client'
 import { useStore } from '../../stores/StoreContext'
+import { observer } from 'mobx-react'
+import Media from './Media'
 
-function Post(props: IPostDto): ReactElement {
+const Post = observer((props: IPostDto) => {
     const [comment, setComment] = React.useState('')
     const { commentStore } = useStore()
 
@@ -18,7 +19,7 @@ function Post(props: IPostDto): ReactElement {
             event.preventDefault()
             event.stopPropagation()
             if (comment) {
-                await commentStore.createComment(new CommentDto({ text: comment }))
+                await commentStore.createComment(new CommentDto({ text: comment, postId: props.id }))
                 setComment('')
             }
         }
@@ -27,7 +28,7 @@ function Post(props: IPostDto): ReactElement {
     return (
         <Card className="post-container">
             <Card.Header>{props.text}</Card.Header>
-            {image && props.linkUrl && <Card.Img src={image}></Card.Img>}
+            {props.storedMedia && props.storedMedia.map((media) => <Media key={media.id} {...media} />)}
             <Card.Footer className="text-center">
                 {props.comments && (
                     <div className="comments-container">
@@ -47,6 +48,6 @@ function Post(props: IPostDto): ReactElement {
             </Card.Footer>
         </Card>
     )
-}
+})
 
 export default Post
