@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Form } from 'react-bootstrap'
 import Comment from './Comment'
-import { IPostDto, CommentDto } from '../../Client'
+import { IPostDto, CreateCommentCommand } from '../../Client'
 import { useStore } from '../../stores/StoreContext'
 import { observer } from 'mobx-react'
 import Media from './Media'
@@ -19,7 +19,7 @@ const Post = observer((props: IPostDto) => {
             event.preventDefault()
             event.stopPropagation()
             if (comment) {
-                await commentStore.createComment(new CommentDto({ text: comment, postId: props.id }))
+                await commentStore.createComment(new CreateCommentCommand({ text: comment, postId: props.id }))
                 setComment('')
             }
         }
